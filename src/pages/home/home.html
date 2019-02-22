@@ -1,14 +1,43 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Consolas y Videojuegos
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click) = "buscar()">
+        <ion-icon name = "search" ></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons>
+      <button ion-button icon-only (click) = "favoritos()">
+        <ion-icon name="star"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content padding style = "background-color: #1051Ea">
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor = "let juego of juegos" col-6>
+          <ion-card style = "background-color: #FBBFCA" (click) = "verProducto(juego)">
+            <img *ngIf = "juego.ad.hasOwnProperty('thumbnail')"
+                  src = "https://img.segundamano.mx/cover/{{juego.ad.thumbnail.path}}">
+            <img *ngIf = "!juego.ad.hasOwnProperty('thumbnail')"
+                  src = "../assets/gameover.jpg">
+            <ion-card-content> 
+                <h2 *ngIf = "juego.ad.hasOwnProperty('list_price')">
+                    {{juego.ad.list_price.label}}
+                  </h2>
+                  <h2 *ngIf = "juego.ad.hasOwnProperty('locations')">
+                    {{juego.ad.locations[0].locations[0].label}}, {{juego.ad.locations[0].label}}
+                  </h2>
+                  <h2 *ngIf = "juego.ad.hasOwnProperty('list_time')">
+                    {{juego.ad.list_time.label}}
+                  </h2>
+            </ion-card-content>
+            </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
